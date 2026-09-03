@@ -1,0 +1,37 @@
+/* 4J Design — Tailwind CSS vía CDN
+   Este archivo es un suplemento mínimo. El estilo principal
+   se gestiona con clases utilitarias de Tailwind en index.html.
+*/
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+::selection {
+    background-color: rgba(107, 15, 36, 0.4);
+    color: #d4af37;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0f0f0f;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #6b0f24;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #d4af37;
+}
+
+/* Smooth scroll fallback */
+html {
+    scroll-behavior: smooth;
+}
