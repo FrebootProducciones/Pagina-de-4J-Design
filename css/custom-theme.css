@@ -1,0 +1,62 @@
+/* ============================================================
+   4J Design — Custom Theme Variables
+   Paleta Corporativa: Vinotinto, Dorado, Negro, Blanco
+   ============================================================ */
+
+:root {
+    /* ── Colores Primarios ── */
+    --color-vinotinto: #6b0f24;
+    --color-vinotinto-dark: #800020;
+    --color-vinotinto-light: #9a1a3a;
+    --color-vinotinto-rgb: 107, 15, 36;
+
+    /* ── Colores Secundarios (Dorado) ── */
+    --color-dorado: #d4af37;
+    --color-dorado-muted: #c5a059;
+    --color-dorado-light: #f0d875;
+    --color-dorado-dark: #b8942e;
+    --color-dorado-rgb: 212, 175, 55;
+
+    /* ── Neutros ── */
+    --color-negro: #0f0f0f;
+    --color-negro-light: #121212;
+    --color-negro-card: #1a1a1a;
+    --color-blanco: #ffffff;
+    --color-gris-claro: #f8fafc;
+    --color-gris-medio: #64748b;
+
+    /* ── Gradientes ── */
+    --gradient-hero: linear-gradient(135deg, #0f0f0f 0%, #500a18 50%, #0f0f0f 100%);
+    --gradient-card: linear-gradient(145deg, #1a1a1a 0%, #121212 100%);
+    --gradient-gold-shimmer: linear-gradient(90deg, #c5a059, #d4af37, #c5a059);
+    --gradient-vinotinto-glow: linear-gradient(135deg, rgba(107,15,36,0.15) 0%, rgba(15,15,15,0) 100%);
+    --gradient-dorado-glow: linear-gradient(135deg, rgba(212,175,55,0.08) 0%, rgba(15,15,15,0) 100%);
+
+    /* ── Sombras ── */
+    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --shadow-card-hover: 0 12px 40px rgba(212, 175, 55, 0.12);
+    --shadow-dorado-sm: 0 0 10px rgba(212, 175, 55, 0.15);
+    --shadow-dorado-md: 0 0 20px rgba(212, 175, 55, 0.2);
+    --shadow-vinotinto-md: 0 0 20px rgba(107, 15, 36, 0.3);
+
+    /* ── Bordes ── */
+    --border-subtle: 1px solid rgba(212, 175, 55, 0.1);
+    --border-accent: 1px solid rgba(212, 175, 55, 0.3);
+    --border-hover: 1px solid rgba(212, 175, 55, 0.5);
+
+    /* ── Transiciones ── */
+    --transition-fast: 150ms ease;
+    --transition-base: 300ms ease;
+    --transition-slow: 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    /* ── Tipografía ── */
+    --font-heading: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    --font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
+
+    /* ── Espaciado ── */
+    --section-padding: 6rem 1rem;
+    --container-max: 1280px;
+    --border-radius-sm: 0.5rem;
+    --border-radius-md: 1rem;
+    --border-radius-lg: 1.5rem;
+}

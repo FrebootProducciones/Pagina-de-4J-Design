@@ -1,37 +1,503 @@
-/* 4J Design — Tailwind CSS vía CDN
-   Este archivo es un suplemento mínimo. El estilo principal
-   se gestiona con clases utilitarias de Tailwind en index.html.
-*/
+/* ============================================================
+   4J Design — Main Stylesheet
+   Tailwind CSS + Custom Styles + Animations
+   ============================================================ */
 
+/* ── Reset & Base ── */
 *,
 *::before,
 *::after {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-negro);
+    color: var(--color-gris-claro);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+/* ── Custom Selection ── */
 ::selection {
-    background-color: rgba(107, 15, 36, 0.4);
-    color: #d4af37;
+    background-color: rgba(107, 15, 36, 0.5);
+    color: var(--color-dorado);
 }
 
+/* ── Scrollbar ── */
 ::-webkit-scrollbar {
     width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #0f0f0f;
+    background: var(--color-negro);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #6b0f24;
+    background: var(--color-vinotinto);
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #d4af37;
+    background: var(--color-dorado);
 }
 
-/* Smooth scroll fallback */
-html {
-    scroll-behavior: smooth;
+/* ── Focus Visible (a11y) ── */
+:focus-visible {
+    outline: 2px solid var(--color-dorado);
+    outline-offset: 2px;
+}
+
+/* ── Skip Link (a11y) ── */
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-vinotinto);
+    color: var(--color-blanco);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+    z-index: 9999;
+    font-weight: 600;
+    text-decoration: none;
+    transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.nav-blur {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.navbar-scrolled {
+    background-color: rgba(15, 15, 15, 0.97) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Mobile menu animation */
+#mobileMenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+    opacity: 0;
+}
+
+#mobileMenu.menu-open {
+    max-height: 400px;
+    opacity: 1;
+}
+
+/* Hamburger animation */
+.hamburger-active span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+
+.hamburger-active span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.hamburger-active span:nth-child(3) {
+    width: 1.5rem !important;
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+.hero-gradient {
+    background: var(--gradient-hero);
+}
+
+.text-glow {
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.4), 0 0 40px rgba(212, 175, 55, 0.1);
+}
+
+.text-glow-vinotinto {
+    text-shadow: 0 0 20px rgba(107, 15, 36, 0.6);
+}
+
+/* Gold shimmer text effect */
+.shimmer {
+    background: linear-gradient(90deg, #c5a059 0%, #d4af37 40%, #f0d875 50%, #d4af37 60%, #c5a059 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { background-position: 200% center; }
+    50% { background-position: -200% center; }
+}
+
+/* Floating animation */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+}
+
+.float-animation {
+    animation: float 4s ease-in-out infinite;
+}
+
+/* Decorative rings */
+.hero-ring {
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn-glow {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-glow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-glow:hover::before {
+    left: 100%;
+}
+
+.btn-glow:hover {
+    box-shadow: 0 0 25px rgba(107, 15, 36, 0.5), 0 0 50px rgba(212, 175, 55, 0.15);
+    transform: translateY(-2px);
+}
+
+.btn-glow:active {
+    transform: translateY(0);
+}
+
+/* ============================================================
+   CARDS
+   ============================================================ */
+.card-zoom img {
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.card-zoom:hover img {
+    transform: scale(1.08);
+}
+
+/* ============================================================
+   FORM INPUTS
+   ============================================================ */
+.input-focus {
+    transition: all 0.3s ease;
+}
+
+.input-focus:focus {
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
+    border-color: var(--color-dorado);
+}
+
+/* Select custom arrow */
+select.input-focus {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+}
+
+/* ============================================================
+   SCROLL REVEAL ANIMATIONS
+   ============================================================ */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-left.revealed {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.reveal-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-right.revealed {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.reveal-scale {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal-scale.revealed {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Stagger children */
+.stagger-children .reveal:nth-child(1) { transition-delay: 0ms; }
+.stagger-children .reveal:nth-child(2) { transition-delay: 100ms; }
+.stagger-children .reveal:nth-child(3) { transition-delay: 200ms; }
+.stagger-children .reveal:nth-child(4) { transition-delay: 300ms; }
+.stagger-children .reveal:nth-child(5) { transition-delay: 400ms; }
+.stagger-children .reveal:nth-child(6) { transition-delay: 500ms; }
+
+/* ============================================================
+   PROCESS / STEPS
+   ============================================================ */
+.step-connector {
+    position: relative;
+}
+
+.step-connector::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-dorado), transparent);
+    transform: translateY(-50%);
+}
+
+@media (max-width: 768px) {
+    .step-connector::after {
+        top: 100%;
+        left: 50%;
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(180deg, var(--color-dorado), transparent);
+        transform: translateX(-50%);
+    }
+}
+
+/* ============================================================
+   TESTIMONIALS / GALLERY CAROUSEL
+   ============================================================ */
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-slide {
+    min-width: 100%;
+    padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+    .carousel-slide {
+        min-width: 50%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .carousel-slide {
+        min-width: 33.333%;
+    }
+}
+
+.carousel-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(107, 15, 36, 0.3);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: var(--color-dorado);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    backdrop-filter: blur(8px);
+}
+
+.carousel-btn:hover {
+    background: var(--color-vinotinto);
+    border-color: var(--color-dorado);
+    box-shadow: var(--shadow-dorado-sm);
+}
+
+/* Dots */
+.carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.2);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.carousel-dot.active {
+    background: var(--color-dorado);
+    width: 24px;
+    border-radius: 4px;
+}
+
+/* ============================================================
+   BENEFIT ICONS
+   ============================================================ */
+.benefit-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(107,15,36,0.2) 0%, rgba(212,175,55,0.05) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    transition: all var(--transition-base);
+}
+
+.benefit-icon:hover {
+    background: linear-gradient(135deg, rgba(107,15,36,0.4) 0%, rgba(212,175,55,0.1) 100%);
+    border-color: rgba(212, 175, 55, 0.4);
+    box-shadow: var(--shadow-dorado-sm);
+    transform: translateY(-4px);
+}
+
+/* ============================================================
+   SECTION DIVIDERS
+   ============================================================ */
+.section-divider {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-dorado), transparent);
+    margin: 1.5rem auto 0;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer-link {
+    color: rgba(248, 250, 252, 0.4);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color var(--transition-base);
+}
+
+.footer-link:hover {
+    color: var(--color-dorado);
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    color: rgba(248, 250, 252, 0.5);
+    transition: all var(--transition-base);
+}
+
+.social-icon:hover {
+    background: var(--color-vinotinto);
+    border-color: var(--color-dorado);
+    color: var(--color-dorado);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-dorado-sm);
+}
+
+/* ============================================================
+   LOADING / SKELETON
+   ============================================================ */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.skeleton {
+    background: linear-gradient(90deg, #1a1a1a 25%, #222 50%, #1a1a1a 75%);
+    background-size: 200% 100%;
+    animation: pulse 1.5s ease-in-out infinite;
+    border-radius: 0.5rem;
+}
+
+/* ============================================================
+   ACCESSIBILITY: Reduced Motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .shimmer {
+        animation: none;
+    }
+
+    .float-animation {
+        animation: none;
+    }
+
+    .reveal,
+    .reveal-left,
+    .reveal-right,
+    .reveal-scale {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ============================================================
+   PRINT STYLES
+   ============================================================ */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
 }
