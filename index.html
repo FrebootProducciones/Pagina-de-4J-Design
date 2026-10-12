@@ -147,14 +147,6 @@
                     </a>
                 </div>
             </div>
-
-            <!-- Scroll indicator -->
-            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gris-claro/30 no-print" aria-hidden="true">
-                <span class="text-[10px] uppercase tracking-[0.2em]">Scroll</span>
-                <div class="w-5 h-8 border border-gris-claro/20 rounded-full flex justify-center pt-1.5">
-                    <div class="w-1 h-2 bg-dorado/50 rounded-full animate-bounce"></div>
-                </div>
-            </div>
         </section>
 
         <!-- ==================== CATÁLOGO DE PRODUCTOS ==================== -->
@@ -174,20 +166,20 @@
                     <button data-filter="Todos" class="px-5 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border border-dorado/40 bg-vinotinto text-limpio transition-all duration-300 hover:shadow-dorado-sm">
                         Todos
                     </button>
-                    <button data-filter="Camisas / Flanelas" class="px-5 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border border-dorado/10 bg-negro-card text-gris-claro/60 transition-all duration-300 hover:border-dorado/30 hover:text-dorado">
-                        Camisas / Flanelas
+                    <button data-filter="Franelas Oversize" class="px-5 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border border-dorado/10 bg-negro-card text-gris-claro/60 transition-all duration-300 hover:border-dorado/30 hover:text-dorado">
+                        Franelas Oversize
                     </button>
-                    <button data-filter="Tazas Cerámicas" class="px-5 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border border-dorado/10 bg-negro-card text-gris-claro/60 transition-all duration-300 hover:border-dorado/30 hover:text-dorado">
-                        Tazas Cerámicas
+                    <button data-filter="Franelas Normales" class="px-5 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border border-dorado/10 bg-negro-card text-gris-claro/60 transition-all duration-300 hover:border-dorado/30 hover:text-dorado">
+                        Franelas Normales
                     </button>
-                    <button data-filter="Mugs Térmicos" class="px-5 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border border-dorado/10 bg-negro-card text-gris-claro/60 transition-all duration-300 hover:border-dorado/30 hover:text-dorado">
-                        Mugs Térmicos
+                    <button data-filter="Suéteres" class="px-5 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border border-dorado/10 bg-negro-card text-gris-claro/60 transition-all duration-300 hover:border-dorado/30 hover:text-dorado">
+                        Suéteres
                     </button>
-                    <button data-filter="Gorras" class="px-5 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border border-dorado/10 bg-negro-card text-gris-claro/60 transition-all duration-300 hover:border-dorado/30 hover:text-dorado">
-                        Gorras
+                    <button data-filter="Franelas Sublimadas Deportivas" class="px-5 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border border-dorado/10 bg-negro-card text-gris-claro/60 transition-all duration-300 hover:border-dorado/30 hover:text-dorado">
+                        Franelas Sublimadas Deportivas
                     </button>
-                    <button data-filter="Regalos Personalizados" class="px-5 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border border-dorado/10 bg-negro-card text-gris-claro/60 transition-all duration-300 hover:border-dorado/30 hover:text-dorado">
-                        Regalos
+                    <button data-filter="DTF Solo" class="px-5 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border border-dorado/10 bg-negro-card text-gris-claro/60 transition-all duration-300 hover:border-dorado/30 hover:text-dorado">
+                        DTF Solo
                     </button>
                 </div>
 
@@ -195,6 +187,11 @@
                 <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 stagger-children">
                     <!-- Products will be dynamically injected here -->
                 </div>
+
+                <!-- Price List Notice -->
+                <p class="text-center text-xs text-gris-claro/40 mt-10 reveal">
+                    Precios en dólares (USD). <span class="text-dorado/60">Todo diseño adicional en prendas tiene un costo extra.</span>
+                </p>
             </div>
         </section>
 

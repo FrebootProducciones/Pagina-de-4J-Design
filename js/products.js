@@ -1,148 +1,258 @@
 /* ============================================================
-   4J Design — Product Catalog Data
-   Catálogo dinámico de productos de sublimación y estampado DTF
+   4J Design — Listado oficial de precios + catálogo
+   Franelas (Tela Terry), Suéteres y servicio DTF
    ============================================================ */
 
-const PRODUCTS = [
+/* ----------------------------------------------------------
+   1. LISTADO OFICIAL DE PRECIOS
+   Cada grupo genera una o varias tarjetas en el catálogo.
+   Para agregar una imagen, coloca su ruta en `image`
+   (ej: 'assets/img/franela-oversize.jpg'). Si queda vacía,
+   se muestra el emoji como placeholder.
+   ---------------------------------------------------------- */
+const PRICE_LIST = [
     {
-        id: 1,
-        name: 'Franela Graphic Tee DTF',
-        category: 'Camisas / Flanelas',
-        tag: 'DTF Premium',
-        price: '$15.00',
-        description: 'Impresión DTF de alta definición en algodón premium. Diseño urbano oversized con acabado duradero.',
-        image: 'assets/img/producto-1.jpg',
+        category: 'Franelas Oversize',
+        sublabel: 'Tela Terry',
+        tag: 'Tela Terry',
         emoji: '👕',
+        image: '',
+        note: 'Todo diseño adicional tiene un costo extra.',
+        items: [
+            {
+                option: 'Diseño minimalista',
+                price: '$18',
+                description: 'Franela oversize en tela Terry con diseño minimalista en un solo lado. Corte amplio y ligero para uso diario.',
+            },
+            {
+                option: 'Diseño mediano/grande (a un solo lado)',
+                price: '$20',
+                description: 'Franela oversize en tela Terry con estampado mediano o grande en una sola cara. Máxima presencia para tu arte.',
+            },
+            {
+                option: 'Diseño grande + diseño pequeño',
+                price: '$22',
+                description: 'Franela oversize en tela Terry con estampado grande en el frente y un diseño pequeño en espalda o manga.',
+            },
+        ],
     },
     {
-        id: 2,
-        name: 'Franela Personalizada 100% Algodón',
-        category: 'Camisas / Flanelas',
-        tag: 'Personalizable',
-        price: '$18.00',
-        description: 'Sublimación full color sobre algodón 100%. Diseña tu arte y lo imprimimos con acabado profesional.',
-        image: 'assets/img/producto-2.jpg',
-        emoji: '👕',
+        category: 'Franelas Normales',
+        sublabel: 'Tela Terry',
+        tag: 'Tela Terry',
+        emoji: '👚',
+        image: '',
+        note: 'Todo diseño adicional tiene un costo extra.',
+        items: [
+            {
+                option: 'Diseño minimalista',
+                price: '$16',
+                description: 'Franela clásica en tela Terry con diseño minimalista en un solo lado. Tallaje estándar y cómodo.',
+            },
+            {
+                option: 'Diseño mediano/grande (a un solo lado)',
+                price: '$18',
+                description: 'Franela clásica en tela Terry con estampado mediano o grande en una sola cara.',
+            },
+            {
+                option: 'Diseño grande + diseño pequeño',
+                price: '$20',
+                description: 'Franela clásica en tela Terry con estampado grande en el frente y un diseño pequeño adicional.',
+            },
+        ],
     },
     {
-        id: 3,
-        name: 'Gorra Personalizada DTF',
-        category: 'Gorras',
+        category: 'Suéteres',
+        sublabel: 'Tela Terry',
+        tag: 'Tela Terry',
+        emoji: '🧥',
+        image: '',
+        note: 'Todo diseño adicional tiene un costo extra.',
+        items: [
+            {
+                option: 'Diseño pequeño / mediano',
+                price: '$22',
+                description: 'Suéter personalizado con estampado pequeño o mediano en una sola cara. Ideal para equipos y regalos.',
+            },
+            {
+                option: 'Diseño grande',
+                price: '$25',
+                description: 'Suéter personalizado con estampado grande de alta cobertura sobre tela Terry.',
+            },
+        ],
+    },
+    {
+        category: 'Franelas Sublimadas Deportivas',
+        sublabel: 'Sublimación deportiva',
         tag: 'Sublimación',
-        price: '$12.00',
-        description: 'Estampado DTF en gorras de alta calidad. Diseños que resaltan tu marca personal o equipo.',
-        image: 'assets/img/producto-3.jpg',
-        emoji: '🧢',
+        emoji: '🏃',
+        image: '',
+        note: 'Todo diseño adicional tiene un costo extra.',
+        items: [
+            {
+                option: 'Tela muselina',
+                price: '$15',
+                description: 'Franela deportiva sublimada en tela muselina. Liviana y fresca, ideal para equipos, entrenamientos y promociones.',
+            },
+            {
+                option: 'Tela atlética dry fit',
+                price: '$18',
+                description: 'Franela deportiva sublimada en tela atlética dry fit. Secado rápido y alta absorción de sudor.',
+            },
+        ],
     },
     {
-        id: 4,
-        name: 'Taza Cerámica Sublimada',
-        category: 'Tazas Cerámicas',
-        tag: 'Sublimación',
-        price: '$8.00',
-        description: 'Taza cerámica de 11oz con sublimación full color. Acabado brillante, resistente al lavado.',
-        image: 'assets/img/producto-4.jpg',
-        emoji: '☕',
-    },
-    {
-        id: 5,
-        name: 'Termo Térmico Personalizado',
-        category: 'Mugs Térmicos',
-        tag: 'Sublimación Premium',
-        price: '$14.00',
-        description: 'Termo térmico de acero inoxidable con sublimación. Mantiene temperatura por horas. Ideal para regalos.',
-        image: 'assets/img/producto-5.jpg',
-        emoji: '🫗',
-    },
-    {
-        id: 6,
-        name: 'Frasco Térmico Premium',
-        category: 'Mugs Térmicos',
-        tag: 'Sublimación Premium',
-        price: '$16.00',
-        description: 'Frasco térmico de doble pared con diseño personalizado. Perfecto para empresas y eventos corporativos.',
-        image: 'assets/img/producto-6.jpg',
-        emoji: '🍶',
-    },
-    {
-        id: 7,
-        name: 'Playera DTF Estampado Premium',
-        category: 'Camisas / Flanelas',
-        tag: 'DTF Premium',
-        price: '$16.00',
-        description: 'Playera poliéster/algodón con estampado DTF de alta resistencia. Colores vivos que no se desvanecen.',
-        image: 'assets/img/producto-7.jpg',
-        emoji: '👔',
-    },
-    {
-        id: 8,
-        name: 'Gorra Bordada + DTF',
-        category: 'Gorras',
-        tag: 'Bordado + DTF',
-        price: '$15.00',
-        description: 'Gorra con bordado Frontal + estampado DTF trasero. Combinación premium para marcas exigentes.',
-        image: 'assets/img/producto-8.jpg',
-        emoji: '🧢',
-    },
-    {
-        id: 9,
-        name: 'Kit Regalo Personalizado',
-        category: 'Regalos Personalizados',
-        tag: 'Combo',
-        price: '$25.00',
-        description: 'Kit que incluye taza + frasco térmico + gorra personalizados. Perfecto para regalo corporativo o evento.',
-        image: 'assets/img/producto-9.jpg',
-        emoji: '🎁',
+        category: 'DTF Solo',
+        sublabel: 'Impresión / Transfer',
+        tag: 'Impresión DTF',
+        emoji: '🖨️',
+        image: '',
+        note: '',
+        items: [
+            {
+                option: 'Tamaño A4',
+                price: '$5',
+                description: 'Hoja de transfer DTF tamaño A4 (21 × 29,7 cm). Solo la impresión, sin prenda.',
+            },
+            {
+                option: 'Tamaño Tabloide',
+                price: '$6',
+                description: 'Hoja de transfer DTF tamaño Tabloide (27,9 × 43,2 cm). Más área para diseños grandes.',
+            },
+            {
+                option: 'Medio metro',
+                price: '$8',
+                description: 'Media metro continuo de transfer DTF (aproximadamente 50 cm de largo).',
+            },
+            {
+                option: 'Un metro',
+                price: '$16',
+                description: 'Metro continuo de transfer DTF (aproximadamente 100 cm de largo). La mejor opción por cantidad.',
+            },
+        ],
     },
 ];
 
-/* Renderiza el catálogo en el contenedor指定 */
-function renderCatalog(containerId) {
+/* ----------------------------------------------------------
+   2. LISTADO PLANO DE PRODUCTOS (una tarjeta por variante)
+   ---------------------------------------------------------- */
+const PRODUCTS = [];
+PRICE_LIST.forEach(function (group, groupIndex) {
+    group.items.forEach(function (item, itemIndex) {
+        PRODUCTS.push({
+            id: groupIndex * 10 + itemIndex + 1,
+            category: group.category,      // valor del botón de filtro
+            sublabel: group.sublabel,      // "Tela Terry" / "Impresión / Transfer"
+            option: item.option,           // variante dentro de la categoría
+            name: group.category + ' - ' + item.option,  // texto que se envía al formulario
+            price: item.price,
+            priceLabel: 'Precio: ' + item.price,
+            description: item.description,
+            note: group.note,
+            tag: group.tag,
+            emoji: group.emoji,
+            image: group.image,
+        });
+    });
+});
+
+/* ----------------------------------------------------------
+   3. UTILIDADES
+   ---------------------------------------------------------- */
+function escapeHTML(value) {
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+/* Bloque de imagen (o placeholder con emoji si no hay foto) */
+function mediaHTML(product) {
+    const fallback =
+        '<div class="w-full h-72 bg-gradient-to-br from-negro-light to-vinotinto-dark/30 flex items-center justify-center">' +
+            '<span class="text-6xl" aria-hidden="true">' + product.emoji + '</span>' +
+        '</div>';
+
+    if (!product.image) return fallback;
+
+    return (
+        '<img src="' + escapeHTML(product.image) + '" alt="' + escapeHTML(product.name) + '" ' +
+            'class="w-full h-72 object-cover" ' +
+            'loading="lazy" ' +
+            'onerror="this.style.display=\'none\'; this.nextElementSibling.classList.remove(\'hidden\')">' +
+        '<div class="hidden w-full h-72 bg-gradient-to-br from-negro-light to-vinotinto-dark/30 flex items-center justify-center">' +
+            '<span class="text-6xl" aria-hidden="true">' + product.emoji + '</span>' +
+        '</div>'
+    );
+}
+
+/* Tarjeta de producto */
+function buildCard(product, index) {
+    const card = document.createElement('article');
+    card.className =
+        'card-zoom group relative flex flex-col bg-card-gradient rounded-2xl border border-dorado/10 shadow-card overflow-hidden hover:shadow-card-hover hover:border-dorado/25 transition-all duration-500 reveal';
+    card.style.transitionDelay = (index * 80) + 'ms';
+
+    const noteHTML = product.note
+        ? '<div class="mt-4 pt-3 border-t border-dorado/10">' +
+              '<p class="text-[11px] leading-snug text-dorado/60">' +
+                  '<span aria-hidden="true">⚠ </span>' + escapeHTML(product.note) +
+              '</p>' +
+          '</div>'
+        : '';
+
+    card.innerHTML =
+        '<div class="relative overflow-hidden shrink-0">' +
+            mediaHTML(product) +
+            '<span class="absolute top-4 left-4 bg-vinotinto/90 text-limpio text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full border border-dorado/30">' +
+                escapeHTML(product.tag) +
+            '</span>' +
+            '<span class="absolute top-4 right-4 bg-negro/70 text-dorado text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">' +
+                escapeHTML(product.price) +
+            '</span>' +
+        '</div>' +
+        '<div class="p-6 flex flex-col flex-1">' +
+            '<span class="text-[10px] font-bold uppercase tracking-wider text-dorado/50 mb-1 block">' +
+                escapeHTML(product.category) + ' · ' + escapeHTML(product.sublabel) +
+            '</span>' +
+            '<h3 class="text-lg font-bold text-limpio mb-2 group-hover:text-dorado transition-colors duration-300">' +
+                escapeHTML(product.option) +
+            '</h3>' +
+            '<p class="text-sm text-gris-claro/50 mb-5 line-clamp-3">' +
+                escapeHTML(product.description) +
+            '</p>' +
+            noteHTML +
+            '<button type="button" data-product="' + escapeHTML(product.name) + '" ' +
+                'class="mt-auto w-full py-3 bg-vinotinto/20 text-dorado font-semibold text-sm rounded-xl border border-dorado/30 ' +
+                'hover:bg-vinotinto hover:text-limpio hover:border-vinotinto hover:shadow-vinotinto-md transition-all duration-300 cursor-pointer uppercase tracking-wider">' +
+                'Encargar' +
+            '</button>' +
+        '</div>';
+
+    return card;
+}
+
+/* Crea las tarjetas y conecta el botón "Encargar" */
+function renderCards(list, containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
 
     container.innerHTML = '';
 
-    PRODUCTS.forEach(function (product, index) {
-        const card = document.createElement('article');
-        card.className =
-            'card-zoom group relative bg-card-gradient rounded-2xl border border-dorado/10 shadow-card overflow-hidden hover:shadow-card-hover hover:border-dorado/25 transition-all duration-500 reveal';
-        card.style.transitionDelay = (index * 80) + 'ms';
+    list.forEach(function (product, index) {
+        container.appendChild(buildCard(product, index));
+    });
 
-        card.innerHTML =
-            '<div class="relative overflow-hidden">' +
-                '<img src="' + product.image + '" alt="' + product.name + '" ' +
-                    'class="w-full h-72 object-cover" ' +
-                    'loading="lazy" ' +
-                    'onerror="this.style.display=\'none\'; this.nextElementSibling.classList.remove(\'hidden\')">' +
-                '<div class="hidden w-full h-72 bg-gradient-to-br from-negro-light to-vinotinto-dark/30 flex items-center justify-center">' +
-                    '<span class="text-6xl">' + product.emoji + '</span>' +
-                '</div>' +
-                '<span class="absolute top-4 left-4 bg-vinotinto/90 text-limpio text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full border border-dorado/30">' +
-                    product.tag +
-                '</span>' +
-                '<span class="absolute top-4 right-4 bg-negro/70 text-dorado text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">' +
-                    product.price +
-                '</span>' +
-            '</div>' +
-            '<div class="p-6">' +
-                '<span class="text-[10px] font-bold uppercase tracking-wider text-dorado/50 mb-1 block">' +
-                    product.category +
-                '</span>' +
-                '<h3 class="text-lg font-bold text-limpio mb-2 group-hover:text-dorado transition-colors duration-300">' +
-                    product.name +
-                '</h3>' +
-                '<p class="text-sm text-gris-claro/50 mb-5 line-clamp-2">' +
-                    product.description +
-                '</p>' +
-                '<button onclick="seleccionarProducto(\'' + product.name.replace(/'/g, "\\'") + ' - ' + product.price + '\')" ' +
-                    'class="w-full py-3 bg-vinotinto/20 text-dorado font-semibold text-sm rounded-xl border border-dorado/30 ' +
-                    'hover:bg-vinotinto hover:text-limpio hover:border-vinotinto hover:shadow-vinotinto-md transition-all duration-300 cursor-pointer uppercase tracking-wider">' +
-                    'Encargar' +
-                '</button>' +
-            '</div>';
-
-        container.appendChild(card);
+    // Botón "Encargar" → scroll suave a #pedido + autocompletar #producto
+    container.querySelectorAll('[data-product]').forEach(function (button) {
+        button.addEventListener('click', function () {
+            const seleccion = this.getAttribute('data-product');
+            if (typeof window.seleccionarProducto === 'function') {
+                window.seleccionarProducto(seleccion);
+            }
+        });
     });
 
     // Re-observe new elements for scroll reveal
@@ -151,69 +261,26 @@ function renderCatalog(containerId) {
     }
 }
 
+/* ----------------------------------------------------------
+   4. RENDER DEL CATÁLOGO
+   ---------------------------------------------------------- */
+function renderCatalog(containerId) {
+    renderCards(PRODUCTS, containerId || 'productGrid');
+}
+
 /* Filtrar por categoría */
 function filterCatalog(category) {
-    var container = document.getElementById('productGrid');
-    if (!container) return;
+    const list =
+        !category || category === 'Todos'
+            ? PRODUCTS
+            : PRODUCTS.filter(function (p) {
+                  return p.category === category;
+              });
 
-    if (category === 'Todos') {
-        renderCatalog('productGrid');
-        return;
-    }
-
-    var filtered = PRODUCTS.filter(function (p) {
-        return p.category === category;
-    });
-
-    container.innerHTML = '';
-
-    filtered.forEach(function (product, index) {
-        var card = document.createElement('article');
-        card.className =
-            'card-zoom group relative bg-card-gradient rounded-2xl border border-dorado/10 shadow-card overflow-hidden hover:shadow-card-hover hover:border-dorado/25 transition-all duration-500 reveal';
-        card.style.transitionDelay = (index * 80) + 'ms';
-
-        card.innerHTML =
-            '<div class="relative overflow-hidden">' +
-                '<img src="' + product.image + '" alt="' + product.name + '" ' +
-                    'class="w-full h-72 object-cover" ' +
-                    'loading="lazy" ' +
-                    'onerror="this.style.display=\'none\'; this.nextElementSibling.classList.remove(\'hidden\')">' +
-                '<div class="hidden w-full h-72 bg-gradient-to-br from-negro-light to-vinotinto-dark/30 flex items-center justify-center">' +
-                    '<span class="text-6xl">' + product.emoji + '</span>' +
-                '</div>' +
-                '<span class="absolute top-4 left-4 bg-vinotinto/90 text-limpio text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full border border-dorado/30">' +
-                    product.tag +
-                '</span>' +
-                '<span class="absolute top-4 right-4 bg-negro/70 text-dorado text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">' +
-                    product.price +
-                '</span>' +
-            '</div>' +
-            '<div class="p-6">' +
-                '<span class="text-[10px] font-bold uppercase tracking-wider text-dorado/50 mb-1 block">' +
-                    product.category +
-                '</span>' +
-                '<h3 class="text-lg font-bold text-limpio mb-2 group-hover:text-dorado transition-colors duration-300">' +
-                    product.name +
-                '</h3>' +
-                '<p class="text-sm text-gris-claro/50 mb-5 line-clamp-2">' +
-                    product.description +
-                '</p>' +
-                '<button onclick="seleccionarProducto(\'' + product.name.replace(/'/g, "\\'") + ' - ' + product.price + '\')" ' +
-                    'class="w-full py-3 bg-vinotinto/20 text-dorado font-semibold text-sm rounded-xl border border-dorado/30 ' +
-                    'hover:bg-vinotinto hover:text-limpio hover:border-vinotinto hover:shadow-vinotinto-md transition-all duration-300 cursor-pointer uppercase tracking-wider">' +
-                    'Encargar' +
-                '</button>' +
-            '</div>';
-
-        container.appendChild(card);
-    });
-
-    if (typeof initScrollReveal === 'function') {
-        initScrollReveal();
-    }
+    renderCards(list, 'productGrid');
 }
 
 window.renderCatalog = renderCatalog;
 window.filterCatalog = filterCatalog;
 window.PRODUCTS = PRODUCTS;
+window.PRICE_LIST = PRICE_LIST;

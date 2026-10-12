@@ -7,7 +7,7 @@
     'use strict';
 
     /* ── Config ── */
-    var TELEFONO = '1234567890'; // Cambiar al número real de WhatsApp
+    var TELEFONO = '584127468362'; // WhatsApp 4J Design (formato internacional, sin espacios ni símbolos)
 
     /* ===========================================================
        MOBILE MENU
@@ -130,18 +130,52 @@
         var input = document.getElementById('producto');
         if (input) {
             input.value = nombreProducto;
-            input.focus();
+            input.dispatchEvent(new Event('input', { bubbles: true }));
             input.classList.add('input-focus');
+            input.focus({ preventScroll: true }); // el scroll lo controlamos abajo
+            // Feedback visual: resalta brevemente el campo autocompletado
+            input.style.borderColor = '#d4af37';
+            setTimeout(function () { input.style.borderColor = ''; }, 1600);
         }
+
         var pedido = document.getElementById('pedido');
         if (pedido) {
-            pedido.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            var offset = 80; // altura del navbar fijo
+            var top = pedido.getBoundingClientRect().top + window.pageYOffset - offset;
+            window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
         }
     };
 
     /* ===========================================================
        SEND TO WHATSAPP
+       Genera un mensaje estructurado y lo abre en wa.me
        =========================================================== */
+
+    /* Resalta en rojo un campo obligatorio que falta */
+    function marcarCampoVacio(field) {
+        if (!field) return;
+        field.style.borderColor = '#ef4444';
+        setTimeout(function () { field.style.borderColor = ''; }, 2000);
+    }
+
+    /* Los pedidos de DTF Solo no llevan prenda: no requieren talla ni color */
+    function esPedidoDTF(texto) {
+        return /^dtf\s*solo/i.test(String(texto || '').trim());
+    }
+
+    /* Ajusta las etiquetas de talla/color según el producto elegido */
+    function actualizarEtiquetasPorProducto() {
+        var producto = document.getElementById('producto');
+        var lblTalla = document.querySelector('label[for="talla"]');
+        var lblColor = document.querySelector('label[for="color"]');
+        if (!producto) return false;
+
+        var esDTF = esPedidoDTF(producto.value);
+        if (lblTalla) lblTalla.textContent = esDTF ? 'Talla (no aplica en DTF)' : 'Talla *';
+        if (lblColor) lblColor.textContent = esDTF ? 'Color de Prenda (no aplica en DTF)' : 'Color de Prenda';
+        return esDTF;
+    }
+
     window.enviarWhatsApp = function () {
         var nombre = document.getElementById('nombre');
         var producto = document.getElementById('producto');
@@ -152,38 +186,56 @@
 
         var nombreVal = nombre ? nombre.value.trim() : '';
         var productoVal = producto ? producto.value.trim() : '';
-        var tallaVal = talla ? talla.value : '';
-        var colorVal = color ? color.value : '';
+        var tallaVal = talla ? talla.value.trim() : '';
+        var colorVal = color ? color.value.trim() : '';
         var detallesVal = detalles ? detalles.value.trim() : '';
-        var cantidadVal = cantidad ? cantidad.value : '1';
+        var cantidadVal = cantidad ? String(cantidad.value).trim() : '';
 
-        if (!nombreVal || !productoVal) {
-            // Shake animation on empty fields
-            if (!nombreVal && nombre) {
-                nombre.style.borderColor = '#ef4444';
-                setTimeout(function () { nombre.style.borderColor = ''; }, 2000);
-            }
-            if (!productoVal && producto) {
-                producto.style.borderColor = '#ef4444';
-                setTimeout(function () { producto.style.borderColor = ''; }, 2000);
-            }
-            alert('Por favor completa los campos de nombre y producto.');
+        var esDTF = esPedidoDTF(productoVal);
+
+        /* ── Validación de campos obligatorios ── */
+        var faltantes = [];
+
+        if (!nombreVal) { faltantes.push('Cliente'); marcarCampoVacio(nombre); }
+        if (!productoVal) { faltantes.push('Producto'); marcarCampoVacio(producto); }
+        if (!esDTF && !tallaVal) { faltantes.push('Talla'); marcarCampoVacio(talla); }
+
+        if (faltantes.length) {
+            alert('Faltan datos obligatorios: ' + faltantes.join(', ') + '.\n\n' +
+                (esDTF
+                    ? 'En los pedidos de solo DTF solo necesitas el producto (A4, Tabloide, Medio metro o Un metro).'
+                    : 'Para las prendas además del nombre y el producto necesitas indicar la talla.'));
+            var mapa = { Cliente: nombre, Producto: producto, Talla: talla };
+            var primerCampo = mapa[faltantes[0]];
+            if (primerCampo && typeof primerCampo.focus === 'function') primerCampo.focus();
             return;
         }
 
+        /* ── Cantidad (por defecto 1) ── */
+        var cantidadNum = parseInt(cantidadVal, 10);
+        if (!cantidadNum || cantidadNum < 1 || isNaN(cantidadNum)) cantidadNum = 1;
+        cantidadVal = String(cantidadNum);
+
+        /* ── Construcción del mensaje ── */
         var lineas = [
-            'Hola! Quisiera realizar un pedido en *4J Design*:',
+            '🛒 *NUEVO PEDIDO - 4J DESIGN* 🛒',
             '',
-            '*Nombre:* ' + nombreVal,
-            '*Producto:* ' + productoVal,
-            '*Talla:* ' + (tallaVal || 'No especificada'),
+            '👤 *Cliente:* ' + nombreVal,
+            '🛍️ *Producto:* ' + productoVal,
         ];
 
-        if (colorVal) lineas.push('*Color:* ' + colorVal);
-        if (cantidadVal && cantidadVal !== '1') lineas.push('*Cantidad:* ' + cantidadVal);
-        if (detallesVal) lineas.push('*Detalles:* ' + detallesVal);
+        if (esDTF) {
+            // El DTF se pide solo por medidas ya establecidas: sin talla ni color de prenda
+            lineas.push('📏 *Medida:* definida en el producto (impresión / transfer, sin prenda)');
+        } else {
+            lineas.push('👕 *Talla:* ' + tallaVal);
+            lineas.push('🎨 *Color:* ' + (colorVal || 'Por definir'));
+        }
 
-        lineas.push('', '---', 'Enviado desde 4J Design');
+        lineas.push('🔢 *Cantidad:* ' + cantidadVal);
+        lineas.push('📝 *Detalles:* ' + (detallesVal || 'Sin detalles adicionales'));
+        lineas.push('');
+        lineas.push('¡Hola! Me gustaría confirmar este pedido.');
 
         var mensaje = encodeURIComponent(lineas.join('\n'));
         window.open('https://wa.me/' + TELEFONO + '?text=' + mensaje, '_blank');
@@ -356,6 +408,13 @@
         initScrollReveal();
         initCarousel();
         initFilterButtons();
+
+        // Talla/color solo aplican a prendas: en DTF Solo no son necesarios
+        var campoProducto = document.getElementById('producto');
+        if (campoProducto) {
+            campoProducto.addEventListener('input', actualizarEtiquetasPorProducto);
+            actualizarEtiquetasPorProducto();
+        }
 
         // Render catalog if container exists
         if (typeof renderCatalog === 'function') {
