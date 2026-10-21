@@ -5,4 +5,7 @@ Página dedicada a la presentación Web de nuestra tienda virtual, 4J Design sob
 ## Tecnologias usadas
 
 1. HTML5
-2. CSS
+2. CSS3
+4. JavaScript
+5. Tailwind CSS
+
